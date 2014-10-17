@@ -2,6 +2,7 @@ central
 =======
 
 central repo for future projects
-future home for Feature Releases
 
 
+This will be the structure we use for future projects
+![Image](git-model@2x.png?raw=true)
