@@ -61,21 +61,21 @@ Feature branches typically exist in developer repos only, not in origin.
 ##Creating a feature branch 
 When starting work on a new feature, branch off from the develop branch.
 
-``` $ git checkout -b myfeature develop
+``` $ git checkout -b myfeature develop ```
 Switched to a new branch "myfeature"
 Incorporating a finished feature on develop 
 Finished features may be merged into the develop branch definitely add them to the upcoming release:
 
-$ git checkout develop
+``` $ git checkout develop ```
 Switched to branch 'develop'
-$ git merge --no-ff myfeature
+``` $ git merge --no-ff myfeature ```
 Updating ea1b82a..05e9557
 (Summary of changes)
-$ git branch -d myfeature
+``` $ git branch -d myfeature ```
 Deleted branch myfeature (was 05e9557).
-$ git push origin develop
+``` $ git push origin develop ```
 The --no-ff flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward. This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. Compare:
-```
+
 
 
 In the latter case, it is impossible to see from the Git history which of the commit objects together have implemented a feature—you would have to manually read all the log messages. Reverting a whole feature (i.e. a group of commits), is a true headache in the latter situation, whereas it is easily done if the --no-ff flag was used.
@@ -162,10 +162,11 @@ Files modified successfully, version bumped to 1.2.1.
 $ git commit -a -m "Bumped version number to 1.2.1"
 [hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1
 1 files changed, 1 insertions(+), 1 deletions(-)
+```
 Don’t forget to bump the version number after branching off!
 
 Then, fix the bug and commit the fix in one or more separate commits.
-
+```
 $ git commit -m "Fixed severe production problem"
 [hotfix-1.2.1 abbe5d6] Fixed severe production problem
 5 files changed, 32 insertions(+), 17 deletions(-)
@@ -189,14 +190,15 @@ $ git checkout develop
 Switched to branch 'develop'
 $ git merge --no-ff hotfix-1.2.1
 Merge made by recursive.
+```
 (Summary of changes)
 The one exception to the rule here is that, when a release branch currently exists, the hotfix changes need to be merged into that release branch, instead of develop. Back-merging the bugfix into the release branch will eventually result in the bugfix being merged into develop too, when the release branch is finished. (If work in develop immediately requires this bugfix and cannot wait for the release branch to be finished, you may safely merge the bugfix into develop now already as well.)
-```
+
 Finally, remove the temporary branch:
 ```
 $ git branch -d hotfix-1.2.1
 Deleted branch hotfix-1.2.1 (was abbe5d6).
-``
+```
 
 Summary 
 While there is nothing really shocking new to this branching model, the “big picture” figure that this post began with has turned out to be tremendously useful in our projects. It forms an elegant mental model that is easy to comprehend and allows team members to develop a shared understanding of the branching and releasing processes.
